@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import Map from "../Map/Map";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addMarkers } from "../../redux/actions/markerAction";
-import "./styles/index.css";
 
+import PropTypes from "prop-types";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
@@ -16,10 +14,17 @@ import {
   ComboboxOption
 } from "@reach/combobox";
 
+import Map from "../Map/Map";
+import { addMarkers } from "../../redux/actions/markerAction";
+import { setCenter } from "../../redux/actions/centerAction";
+
+import "./styles/index.css";
+
 const SearchBox = ({ zoom }) => {
-  const markersRedux = useSelector((state) => state.markers);
+  let markers = useSelector((state) => state.markers);
+  let center = useSelector((state) => state.center);
   // const [markers, setMarkers] = useState(markersRedux);
-  const [center, setCenter] = useState({ lat: 40.75, lng: -74 });
+  // const [center, setCenter] = useState({ lat: 40.75, lng: -74 });
   const dispatch = useDispatch();
 
   const {
@@ -35,17 +40,17 @@ const SearchBox = ({ zoom }) => {
     clearSuggestions();
 
     const result = await getGeocode({ address });
-
     const { lat, lng } = await getLatLng(result[0]);
-    setCenter({ lat, lng });
-    // setMarkers({ lat, lng });
-    // setear el estadi de markers cn el dispatch
-    dispatch(addMarkers([...markersRedux, { lat, lng }]));
+
+    dispatch(setCenter({ lat, lng }));
+    dispatch(addMarkers([...markers, { lat, lng }]));
+    setValue("");
   };
   const handleReset = () => {
     setValue("");
-    // document.getElementById("inputReset").value = null;
   };
+  console.log("SearchBox");
+
   return (
     <div className="search-container">
       <Combobox onSelect={handleSelect} className="combo-box-container">
@@ -69,11 +74,15 @@ const SearchBox = ({ zoom }) => {
       <Map
         center={center}
         zoom={zoom}
-        markers={markersRedux}
+        markers={markers}
         handleReset={handleReset}
       />
     </div>
   );
+};
+
+SearchBox.propTypes = {
+  zoom: PropTypes.number.isRequired
 };
 
 export default SearchBox;

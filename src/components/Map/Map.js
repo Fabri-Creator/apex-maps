@@ -1,10 +1,14 @@
-import React, { useMemo } from "react";
-import "./styles/index.css";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+
 import "@reach/combobox/styles.css";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+
+import "./styles/index.css";
 import "./styles/index.css";
 
 const Map = ({ center, zoom, markers, handleReset }) => {
+  console.log("Map");
   return (
     LoadScript && (
       <GoogleMap
@@ -22,6 +26,16 @@ const Map = ({ center, zoom, markers, handleReset }) => {
       </GoogleMap>
     )
   );
+};
+
+Map.propTypes = {
+  center: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number
+  }).isRequired,
+  zoom: PropTypes.number.isRequired,
+  markers: PropTypes.array.isRequired,
+  handleReset: PropTypes.func.isRequired
 };
 
 export default Map;

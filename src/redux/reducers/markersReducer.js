@@ -1,6 +1,6 @@
 import { SET_MARKERS } from "../actions/markerAction";
 
-const defaulMarker = [{ lat: 40.75, lng: -74 }];
+const defaulMarker = [];
 
 function markersReducer(state = defaulMarker, action) {
   switch (action.type) {
