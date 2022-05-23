@@ -1,0 +1,12 @@
+.left-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 65%;
+    height: 90%;
+    background-color: whitesmoke;
+}
+.left-map-container{
+    width: 100%;
+    height: 90vh;
+}
