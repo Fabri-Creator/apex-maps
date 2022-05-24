@@ -8,7 +8,6 @@ import "./styles/index.css";
 import "./styles/index.css";
 
 const Map = ({ center, zoom, markers, handleReset }) => {
-  console.log("Map");
   return (
     LoadScript && (
       <GoogleMap

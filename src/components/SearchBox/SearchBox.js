@@ -19,12 +19,14 @@ import { addMarkers } from "../../redux/actions/markerAction";
 import { setCenter } from "../../redux/actions/centerAction";
 
 import "./styles/index.css";
+const comparison = (a, b) => {
+  return a !== b;
+};
 
 const SearchBox = ({ zoom }) => {
-  let markers = useSelector((state) => state.markers);
-  let center = useSelector((state) => state.center);
-  // const [markers, setMarkers] = useState(markersRedux);
-  // const [center, setCenter] = useState({ lat: 40.75, lng: -74 });
+  // it needs an event insde the map to force a re-render an refresh map center and markers.
+  let markers = useSelector((state) => state.markers, comparison);
+  let center = useSelector((state) => state.center, comparison);
   const dispatch = useDispatch();
 
   const {
@@ -43,14 +45,12 @@ const SearchBox = ({ zoom }) => {
     const { lat, lng } = await getLatLng(result[0]);
 
     dispatch(setCenter({ lat, lng }));
-    dispatch(addMarkers([...markers, { lat, lng }]));
+    dispatch(addMarkers({ lat, lng }));
     setValue("");
   };
   const handleReset = () => {
     setValue("");
   };
-  console.log("SearchBox");
-
   return (
     <div className="search-container">
       <Combobox onSelect={handleSelect} className="combo-box-container">

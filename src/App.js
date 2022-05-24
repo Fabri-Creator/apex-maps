@@ -1,14 +1,14 @@
 import "./App.css";
-import LeftLayout from "./components/LeftLayout/LeftLayout";
-import RightLayout from "./components/RightLayout/RightLayout";
+
+import { LAYOUT_CONFIG } from "./global";
+import Layout from "./components/RightLayout/Layout";
 
 function App() {
-  console.log("App");
-
   return (
     <div className="App">
-      <LeftLayout />
-      <RightLayout />
+      {LAYOUT_CONFIG.map(({ variant, zoom, id }) => (
+        <Layout variant={variant} zoom={zoom} key={id} />
+      ))}
     </div>
   );
 }
