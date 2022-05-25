@@ -7,6 +7,7 @@ import "./styles/index.css";
 
 const Layout = ({ zoom, variant }) => (
   <div className={variant}>
+    {/* <h3>Type location</h3> */}
     <SearchBox zoom={zoom} />
   </div>
 );

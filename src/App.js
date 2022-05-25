@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { LAYOUT_CONFIG } from "./global";
-import Layout from "./components/RightLayout/Layout";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   return (
